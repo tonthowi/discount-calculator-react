@@ -3,13 +3,13 @@ import './App.css'
 
 const Display = ({result, price, discount}) => {
   return (
-    <div className='flex flex-col mb-8'>
-      <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+    <div className='flex flex-col mb-8 justify-center'>
+      <h1 className="flex-auto text-3xl font-bold tracking-tight py-6 text-gray-900 sm:text-4xl">
         {result}
-      </h2>
-      <div className='flex flex-row'>
-        <p className='flex-auto'>{price}</p>
-        <p className='flex-auto'>{discount}</p>
+      </h1>
+      <div className='flex flex-row justify-start'>
+        <p className='flex-auto w-64'>Input price <br /><strong>{price}</strong></p>
+        <p className='flex-auto w-64'>Input discount <br /><strong>{discount}%</strong></p>
       </div>
     </div>
   )
@@ -17,9 +17,9 @@ const Display = ({result, price, discount}) => {
 
 const Button = ({handleClick, text}) => {
   return (
-    <div className='w-full mt-8'>
+    <div className='mt-8'>
       <button
-        className="bg-slate-900 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
+        className="w-full bg-slate-900 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded"
         onClick={handleClick}
         >
         {text}
@@ -28,17 +28,15 @@ const Button = ({handleClick, text}) => {
   )
 }
 
-const Input = ({handleChange, placeholder}) => {
-
+const Input = ({handleChange, placeholder, id}) => {
   return (
     <div className='mt-4'>
       <input
           type="number"
-          name="price"
-          id="price"
+          id={id}
           className="block w-full rounded-md border-0 py-1.5 px-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
           placeholder={placeholder}
-          onChange={handleChange} // Changed onInput to onChange
+          onChange={handleChange}
           aria-describedby="price-description"
         />
     </div>
@@ -63,16 +61,16 @@ function App() {
 
   return (
     <div className="flex flex-col mx-auto max-w-xl sm:px-6 lg:px-8">
-      <div className='bg-slate-200'>
+      <div>
       <Display
         result={new Intl.NumberFormat('id-ID').format(result)}
         price={new Intl.NumberFormat('id-ID').format(price)}
         discount={discount}
       />
       </div>
-      <Input handleChange = {handlePriceChange} placeholder={"Input price"} />
-      <Input handleChange = {handleDiscountChange} placeholder ={"Input discount"} />
-      <Button handleClick={calculateDiscount} text={"Calculate"} />
+      <Input handleChange = {handlePriceChange} placeholder={"Input price"} id={"price"} />
+      <Input handleChange = {handleDiscountChange} placeholder ={"Input discount"} id={"discount"} />
+      <Button handleClick= {calculateDiscount} text={"Calculate"} />
   </div>
   )
 }
